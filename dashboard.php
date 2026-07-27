@@ -15,6 +15,7 @@ $result = mysqli_query($conn, "SELECT * FROM posts ORDER BY id DESC");
 <html>
 <head>
     <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 

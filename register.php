@@ -23,6 +23,7 @@ if(isset($_POST['register']))
 <html>
 <head>
     <title>Register</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 

@@ -30,6 +30,7 @@ if(isset($_POST['submit']))
 <html>
 <head>
     <title>Create Post</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
