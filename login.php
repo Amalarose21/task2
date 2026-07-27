@@ -36,8 +36,12 @@ if(isset($_POST['login']))
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<div class="container">
 
 <h2>User Login</h2>
 
@@ -54,7 +58,10 @@ if(isset($_POST['login']))
 </form>
 
 <p>Don't have an account?
-<a href="register.php">Register</a></p>
+<a href="register.php">Register</a>
+</p>
+
+</div>
 
 </body>
 </html>
