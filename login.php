@@ -7,19 +7,24 @@ if(isset($_POST['login']))
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE username='$username'";
-    $result = mysqli_query($conn, $sql);
+    $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE username=?");
+mysqli_stmt_bind_param($stmt, "s", $username);
+mysqli_stmt_execute($stmt);
 
-    if(mysqli_num_rows($result) > 0)
-    {
-        $row = mysqli_fetch_assoc($result);
+$result = mysqli_stmt_get_result($stmt);
+
+if(mysqli_num_rows($result) > 0)
+{
+    $row = mysqli_fetch_assoc($result);
 
         if(password_verify($password, $row['password']))
-        {
-            $_SESSION['username'] = $username;
-            header("Location: dashboard.php");
-            exit();
-        }
+{
+    $_SESSION['username'] = $username;
+    $_SESSION['role'] = $row['role'];
+
+    header("Location: dashboard.php");
+    exit();
+}
         else
         {
             echo "<script>alert('Invalid Password');</script>";

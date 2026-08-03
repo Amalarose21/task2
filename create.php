@@ -10,19 +10,26 @@ if(!isset($_SESSION['username']))
 
 if(isset($_POST['submit']))
 {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
+    $title = trim($_POST['title']);
+$content = trim($_POST['content']);
 
-    $sql = "INSERT INTO posts(title, content) VALUES('$title','$content')";
+if(empty($title) || empty($content))
+{
+    die("Title and Content are required.");
+}
 
-    if(mysqli_query($conn, $sql))
-    {
-        echo "<script>alert('Post Added Successfully');</script>";
-    }
-    else
-    {
-        echo "Error: " . mysqli_error($conn);
-    }
+    $stmt = mysqli_prepare($conn, "INSERT INTO posts(title, content) VALUES(?, ?)");
+
+mysqli_stmt_bind_param($stmt, "ss", $title, $content);
+
+if(mysqli_stmt_execute($stmt))
+{
+    echo "<script>alert('Post Added Successfully');</script>";
+}
+else
+{
+    echo "Error: " . mysqli_error($conn);
+}
 }
 ?>
 

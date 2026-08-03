@@ -6,16 +6,18 @@ if(isset($_POST['register']))
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users(username, password) VALUES('$username','$password')";
+    $stmt = mysqli_prepare($conn, "INSERT INTO users(username, password) VALUES(?, ?)");
 
-    if(mysqli_query($conn, $sql))
-    {
-        echo "<script>alert('Registration Successful');</script>";
-    }
-    else
-    {
-        echo "Error: " . mysqli_error($conn);
-    }
+mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+
+if(mysqli_stmt_execute($stmt))
+{
+    echo "<script>alert('Registration Successful');</script>";
+}
+else
+{
+    echo "Error: " . mysqli_error($conn);
+}
 }
 ?>
 
