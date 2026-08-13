@@ -9,11 +9,10 @@ if (!isset($_SESSION['username']))
 }
 
 // Allow only admins to delete posts
-if ($_SESSION['role'] != "admin")
+if (!isset($_SESSION['role']) || $_SESSION['role'] != "admin")
 {
     die("Access Denied");
 }
-
 $id = $_GET['id'];
 
 $stmt = mysqli_prepare($conn, "DELETE FROM posts WHERE id=?");
